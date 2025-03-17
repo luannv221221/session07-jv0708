@@ -7,11 +7,11 @@ function CardProduct({ product }) {
         <Card>
             <Card.Img variant="top" src={product.image} />
             <Card.Body>
-                <Card.Title>{product.name}</Card.Title>
+                <Card.Title>{product.productName}</Card.Title>
                 <Card.Text>
-                    {product.price}
+                    {product.unitPrice}
                 </Card.Text>
-                <NavLink className="btn btn-primary" to={"product-detail/" + product.id} >Xem chi tiết</NavLink>
+                <NavLink className="btn btn-primary" to={"product-detail/" + product.productId} >Xem chi tiết</NavLink>
             </Card.Body>
         </Card>
     )
