@@ -1,21 +1,24 @@
-import React from 'react';
-import { Space, Table, Tag } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Button, Space, Table, Tag } from 'antd';
+import axios from 'axios';
+import { ToastContainer } from 'react-toastify';
+import { NavLink } from 'react-router-dom';
 const columns = [
     {
         title: 'STT',
-        dataIndex: 'category_id',
-        key: 'category_id',
+        dataIndex: 'categoryId',
+        key: 'categoryId',
     },
     {
         title: 'Category Name',
-        dataIndex: 'category_name',
-        key: 'category_name',
+        dataIndex: 'categoryName',
+        key: 'categoryName',
         render: (text) => <a>{text}</a>,
     },
     {
         title: 'Desciption',
-        dataIndex: 'category_description',
-        key: 'category_description',
+        dataIndex: 'description',
+        key: 'description',
     },
     {
         title: 'Status',
@@ -35,7 +38,10 @@ const columns = [
         key: 'action',
         render: (_, record) => (
             <Space size="middle">
-                <a>Edit</a>
+                <Button>
+                    <NavLink to={`/admin/edit-category/${record.categoryId}`}>Edit</NavLink>
+                </Button>
+
                 <a>Delete</a>
             </Space>
         ),
@@ -55,5 +61,28 @@ const data = [
         status: false
     }
 ];
-const Category = () => <Table columns={columns} dataSource={data} />;
+const Category = () => {
+    const [categories, setCategories] = useState([]);
+
+    useEffect(() => {
+        getDataAPI();
+    }, [])
+
+    const getDataAPI = () => {
+        axios.get("http://localhost:8080/api/v1/admin/categories")
+            .then((response) => {
+                // cập nhaath sate danh danh danh mục 
+                setCategories(response.data.content);
+            })
+            .catch(err => console.log(err));
+    }
+
+    return (
+        <>
+            <Table columns={columns} dataSource={categories} />
+            <ToastContainer autoClose={3000} />
+        </>
+    )
+}
+
 export default Category;

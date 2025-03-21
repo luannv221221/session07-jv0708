@@ -13,6 +13,7 @@ import AdminLayout from './layouts/AdminLayout'
 import Dashboard from './pages/admin/Dashboard'
 import Category from './pages/admin/category/Category'
 import AddCategory from './pages/admin/category/AddCategory'
+import EditCategory from './pages/admin/category/EditCategory'
 function App() {
 
 
@@ -28,6 +29,7 @@ function App() {
         <Route index element={<Dashboard />}></Route>
         <Route path='category' element={<Category />}></Route>
         <Route path='add-category' element={<AddCategory />}></Route>
+        <Route path='edit-category/:id' element={<EditCategory />}></Route>
       </Route>
     </Routes>
   )
