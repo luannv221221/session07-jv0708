@@ -7,6 +7,7 @@ import { UploadOutlined } from '@ant-design/icons';
 function AddProduct() {
 
     const [category, setCategory] = useState([]);
+    const [file, setFile] = useState();
     const onChange = (value) => {
         console.log(`selected ${value}`);
     };
@@ -14,16 +15,20 @@ function AddProduct() {
         console.log('search:', value);
     };
     const onFinish = (values) => {
-
+        // values.image = file.originFileObj;
+        const formData = new FormData();
+        formData.append("sku", values.sku);
+        formData.append("productName", values.productName);
+        formData.append("description", values.description);
+        formData.append("unitPrice", values.unitPrice);
+        formData.append("stockQuantity", values.stockQuantity);
+        formData.append("categoryId", values.categoryId);
+        formData.append("image", file.originFileObj);
         // call API thực hiện thêm mới 
+        axios.post("http://localhost:8080/api/v1/admin/products", formData).then((response) => {
+            console.log("Thành công", response);
+        }).catch(err => console.log(err))
         console.log(values);
-        axios.post("http://localhost:8080/api/v1/admin/categories", values).
-            then((response) => {
-                console.log("Thành công", response);
-                toast("Thêm mới danh mục thành công");
-            }).catch(err => console.log(err));
-        // điều huownsgg về danh sách danh mục 
-        navigate("/admin/category");
     };
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
@@ -46,10 +51,9 @@ function AddProduct() {
             .catch(err => console.log(err));
     }
 
-    // anh 
-    const fileList = [
-
-    ];
+    const handleChangeImage = ({ fileList }) => {
+        setFile(fileList[0]);
+    }
     return (
         <Form
             name="basic"
@@ -163,10 +167,10 @@ function AddProduct() {
                 ]}
             >
                 <Upload
-                    action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
                     listType="picture"
                     maxCount={1}
-
+                    onChange={handleChangeImage}
+                    beforeUpload={() => false}
                 >
                     <Button icon={<UploadOutlined />}>Upload</Button>
                 </Upload>
