@@ -14,6 +14,7 @@ import Dashboard from './pages/admin/Dashboard'
 import Category from './pages/admin/category/Category'
 import AddCategory from './pages/admin/category/AddCategory'
 import EditCategory from './pages/admin/category/EditCategory'
+import AddProduct from './pages/admin/product/AddProduct'
 function App() {
 
 
@@ -30,6 +31,7 @@ function App() {
         <Route path='category' element={<Category />}></Route>
         <Route path='add-category' element={<AddCategory />}></Route>
         <Route path='edit-category/:id' element={<EditCategory />}></Route>
+        <Route path='add-product' element={<AddProduct />}></Route>
       </Route>
     </Routes>
   )

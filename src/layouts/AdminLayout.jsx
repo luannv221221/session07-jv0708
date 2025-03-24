@@ -10,7 +10,7 @@ import { Dropdown, Space } from 'antd';
 const menuSider = [
     { icon: UserOutlined, label: "Quản lý người dùng", route: "user" },
     { icon: UserOutlined, label: "Quản lý danh mục", subMenu: [{ label: "danh sách", route: "category" }, { label: "Thêm danh mục", route: "add-category" }] },
-    { icon: UserOutlined, label: "Quản lý sản phẩm", route: "product" }
+    { icon: UserOutlined, label: "Thêm mới sản phẩm", route: "add-product" }
 ];
 const itemSider = menuSider.map(item => {
     return {
